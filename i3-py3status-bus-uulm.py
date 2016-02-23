@@ -91,11 +91,11 @@ class Py3status:
             fset_api = "http://h.fs-et.de/api.php?id="+str(stop_id)+"&limit="+str(limit)
             request = urllib.request.Request(fset_api)
             response = urllib.request.urlopen(request)
-            result = json.loads(response.readall().decode('utf-8'))
+            result = json.loads(response.read().decode('utf-8'))
 
             return result
         except Exception as e:
-            #print(e)
+            print(e)
             return None
 
     def filterBus(self,line,json, filterbus):
@@ -149,7 +149,10 @@ if __name__ == "__main__":
     config = {
         'color_bad': '1F8CDE',
         'color_degraded': '#FFFF00',
-        'color_good': '#00FF00'
+        'color_good': '#00FF00',
+        'busstop':'1240',
+        'limit':'20',
+        'line':'3'
     }
     """
     while True:
