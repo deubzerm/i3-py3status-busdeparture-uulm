@@ -47,7 +47,7 @@ class Py3status:
     #color
     color = '#1F8CDE'
     ##symbols
-    linestart = " "
+    linestart = ""
     countdownsymbol = " "
 
     def __init__(self):
@@ -55,7 +55,6 @@ class Py3status:
         """
         class constructor. 
         """
-        
         pass
 
     def kill(self, i3s_output_list, i3s_config):
@@ -67,6 +66,7 @@ class Py3status:
     def departure(self, i3s_output_list, i3s_config):
         #json-data from api
         stops = self.getBus(self.busstop, self.limit)
+        print("stops:",stops)
         if stops != None:
             #filter for line
             filteredstops = self.filterBus(self.line, stops, self.filter_by_line)
@@ -78,13 +78,14 @@ class Py3status:
                 'cached_until': time() + self.cache_timeout,
                 'full_text': msg 
             }
+            return response
         else:
             response = {
                 'color': '#FF0000',
                 'full_text': self.linestart+" "
             }
 
-        return response
+            return response
 
     def getBus(self, stop_id, limit):
         try:
@@ -95,7 +96,6 @@ class Py3status:
 
             return result
         except Exception as e:
-            print(e)
             return None
 
     def filterBus(self,line,json, filterbus):
@@ -122,7 +122,6 @@ class Py3status:
         while len(tuplelist) != 0:
             for item in tuplelist:
                 print(item[0])
-                
 
 
     def constructMessage(self, filterjson, maxdisplay):
